@@ -98,7 +98,7 @@ public class EmployeeController {
 		if (employeeService.checkuser(empName)) {
 			return Msg.success();
 		} else {
-			return Msg.fail().add("va_msg", "用户名不可用");
+			return Msg.fail().add("va_msg", "用户名重复不可用");
 		}
 	}
 
@@ -180,6 +180,8 @@ public class EmployeeController {
 	public String toQueryPage() {
 		return "query";
 	}
+
+
 
 	/**
 	 * 查询功能的查询员工信息 查询出来的员工数据分页显示

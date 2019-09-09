@@ -15,20 +15,37 @@ public class Employee {
     private String email;
 
     private Integer dId;
+
+    private String phone;
+
+    private String tel;
+
+    private Integer gId;
     //用于查询员工的时候根据员工的d_id查询显示出部门名称
     private Department department;
-    
+
+    //用于查询员工的时候根据员工的g_id查询显示出组别名称
+    private Group group;
+
+
+
     public Employee() {
 		super();
 	}
 
-	public Employee(Integer empId, String empName, String gender, String email, Integer dId) {
+
+
+    public Employee(Integer empId, String empName, String gender, String email, String phone, String tel, Integer dId, Integer gId) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
 		this.gender = gender;
 		this.email = email;
+		this.phone = phone;
+
+		this.tel = tel;
 		this.dId = dId;
+		this.gId = gId;
 	}
 
 	public Department getDepartment() {
@@ -71,6 +88,38 @@ public class Employee {
         this.email = email == null ? null : email.trim();
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", dId=" + dId +
+                ", phone='" + phone + '\'' +
+                ", tel='" + tel + '\'' +
+                ", gId=" + gId +
+                ", department=" + department +
+                ", group=" + group +
+                '}';
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
     public Integer getdId() {
         return dId;
     }
@@ -79,9 +128,20 @@ public class Employee {
         this.dId = dId;
     }
 
-	@Override
-	public String toString() {
-		return "Employee [empName=" + empName + ", gender=" + gender + ", email=" + email + ", dId=" + dId + "]";
-	}
-    
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Integer getgId() {
+        return gId;
+    }
+
+    public void setgId(Integer gId) {
+        this.gId = gId;
+    }
+
 }

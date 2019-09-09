@@ -14,7 +14,7 @@
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql:///ssmcrud?useSSL=false" 
 			userId="root"
-			password="123456">
+			password="root">
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
@@ -39,5 +39,6 @@
 		<!-- 指定每个表的生成策略 -->
 		<table tableName="tbl_emp" domainObjectName="Employee"></table>
 		<table tableName="tbl_dept" domainObjectName="Department"></table>
+		<table tableName="tbl_group" domainObjectName="Group"></table>
 	</context>
 </generatorConfiguration>

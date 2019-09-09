@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crud.dao.HardDiskMgtMapper">
+
+    <!-- 用于查询硬盘的时候根据硬盘的d_id查询显示出目的地名称 -->
+    <resultMap id="WithDentResultMap" type="com.crud.bean.HardDiskMgt">
+        <id column="send_id" jdbcType="INTEGER" property="sendId" />
+        <result column="send_name" jdbcType="VARCHAR" property="sendName" />
+        <!--<result column="gender" jdbcType="CHAR" property="gender" />-->
+        <!--<result column="email" jdbcType="VARCHAR" property="email" />-->
+        <result column="send_num" jdbcType="INTEGER" property="sendNum"/>
+        <result column="d_id" jdbcType="INTEGER" property="dId" />
+        <result column="receive_name" jdbcType="VARCHAR" property="receiveName" />
+        <!--<result column="tel" jdbcType="INTEGER" property="tel" />-->
+        <result column="send_date" jdbcType="DATE" property="sendDate"/>
+        <association property="destination" javaType="com.crud.bean.Destination">
+            <id column="destination_id" property="destinationId"/>
+            <result column="destination_name" property="destinationName"/>
+        </association>
+
+    </resultMap>
+
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="WithDent_Column_List">
+    s.send_id, s.send_name, s.send_num,s.d_id, s.receive_name, s.send_date, d.destination_id, d.destination_name
+    </sql>
+
+
+    <select id="selectByExampleWithDent" resultMap="WithDentResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="WithDent_Column_List" />
+        from disk_send s
+        left join tbl_desn d
+        on s.d_id = d.destination_id
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <insert id="insertSelective" parameterType="com.crud.bean.HardDiskMgt">
+        insert into disk_send
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sendId !=null">
+                send_id,
+            </if>
+            <if test="sendName !=null">
+                send_name,
+            </if>
+            <if test="sendNum !=null">
+                send_num,
+            </if>
+            <if test="receiveName !=null">
+                receive_name,
+            </if>
+            <if test="sendDate !=null">
+                send_date,
+            </if>
+            <if test="dId !=null">
+                d_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sendId !=null">
+                #{sendId,jdbcType=INTEGER},
+            </if>
+            <if test="sendName !=null">
+                #{sendName,jdbcType=VARCHAR},
+            </if>
+            <if test="sendNum !=null">
+                #{sendNum,jdbcType=VARCHAR},
+            </if>
+            <if test="receiveName !=null">
+                #{receiveName,jdbcType=VARCHAR},
+            </if>
+            <if test="sendDate !=null">
+                #{receiveName,jdbcType=timestamp},
+            </if>
+            <if test="dId !=null">
+                #{dId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+</mapper>

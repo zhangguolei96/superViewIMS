@@ -19,7 +19,7 @@ public class MBGTest {
 	InterruptedException, InvalidConfigurationException {
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
-		File configFile = new File("mbg.xml");
+		File configFile = new File("D:/gitlab-project/EmployeeManagementSystem/ssm_crud/mbg.xml");
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);
 		DefaultShellCallback callback = new DefaultShellCallback(overwrite);

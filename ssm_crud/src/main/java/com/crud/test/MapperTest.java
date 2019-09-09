@@ -1,7 +1,12 @@
 package com.crud.test;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.crud.bean.EmployeeExample;
+import com.crud.bean.HardDiskMgt;
+import com.crud.bean.HardDiskMgtExample;
+import com.crud.dao.HardDiskMgtMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +33,8 @@ public class MapperTest {
 	@Autowired
 	private EmployeeMapper emp;
 	@Autowired
+	private HardDiskMgtMapper hdt;
+	@Autowired
 	SqlSession sqlSession;
 	/**
 	 * 测试DepartmentMapper.xml
@@ -52,5 +59,18 @@ public class MapperTest {
 			mapper.insert(new Employee(null,name,"F",name+"@163.com",2));
 		}
 		*/
+		/*EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+
+		List<Employee> employee = mapper.selectByExampleWithDept(new EmployeeExample());
+
+		System.out.println(employee.toString());*/
+
+		/*HardDiskMgtMapper mapper1 = sqlSession.getMapper(HardDiskMgtMapper.class);
+
+		List<HardDiskMgt> hardDiskMgts = mapper1.selectByExampleWithDent(new HardDiskMgtExample());
+
+		System.out.println(hardDiskMgts.toString());*/
+
+
 	}
 }

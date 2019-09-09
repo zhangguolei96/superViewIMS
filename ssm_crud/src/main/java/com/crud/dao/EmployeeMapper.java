@@ -3,6 +3,8 @@ package com.crud.dao;
 import com.crud.bean.Employee;
 import com.crud.bean.EmployeeExample;
 import java.util.List;
+
+import com.crud.bean.HardDiskMgt;
 import org.apache.ibatis.annotations.Param;
 
 public interface EmployeeMapper {
