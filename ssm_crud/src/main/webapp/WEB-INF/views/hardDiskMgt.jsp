@@ -198,7 +198,7 @@
         <div class="col-md-4 col-md-offset-8">
 
             <button type="button" class="btn btn-primary" id="emp_add_modal_btn">新增</button>
-            <button type="button" class="btn btn-danger" id="emp_delete_all_btn">删除</button>
+            <button type="button" class="btn btn-danger" id="hdm_delete_all_btn">删除</button>
             <!-- 增加一个高级搜索的按钮 -->
             <!-- 跳转到高级搜索的界面query.jsp -->
             <button type="button" class="btn btn-info" id="emp_query_btn">高级搜索</button>
@@ -466,7 +466,7 @@
     }
 
     //员工姓名输入框的校验
-    $("#sendName_add_input").change(
+    /*$("#sendName_add_input").change(
         function() {
             //发送ajax校验用户名是否可用
             var empName = this.value;
@@ -487,7 +487,7 @@
                     }
                 }
             });
-        });
+        });*/
 
     //保存新增员工信息
     $("#emp_save_btn").click(function() {
@@ -660,7 +660,7 @@
         if(confirm("确认删除"+delName+"?")){
             //确定，发送删除请求
             $.ajax({
-                url:"${APP_PATH}/emp/" + $(this).attr("delete-id"),
+                url:"${APP_PATH}/hardDisk/" + $(this).attr("delete-id"),
                 type:"DELETE",
                 success:function(result){
                     alert(result.msg);
@@ -685,7 +685,7 @@
     });
 
     //点击全部删除
-    $("#emp_delete_all_btn").click(function(){
+    $("#hdm_delete_all_btn").click(function(){
         var empNames = "";
         var del_idstr = "";
         $.each($(".check_item:checked"),function(index,item){
@@ -696,7 +696,7 @@
         del_idstr = del_idstr.substring(0,del_idstr.length-1);
         if(confirm("确认删除"+empNames+"?")){
             $.ajax({
-                url:"${APP_PATH}/emp/" + del_idstr,
+                url:"${APP_PATH}/hardDisk/" + del_idstr,
                 type:"DELETE",
                 success:function(result){
                     alert(result.msg);

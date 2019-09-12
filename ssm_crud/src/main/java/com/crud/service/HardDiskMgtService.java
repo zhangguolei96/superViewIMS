@@ -2,6 +2,8 @@ package com.crud.service;
 
 import java.util.List;
 
+import com.crud.bean.HardDiskMgtExample;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,18 +66,18 @@ public class HardDiskMgtService {
      * @param id
      */
     public void deleteEmp(Integer id) {
-        employeeMapper.deleteByPrimaryKey(id);
+        hardDiskMgtMapper.deleteByPrimaryKey(id);
     }
     /**
      * 批量删除员工
-     * @param strIds
+     * @param ids
      */
     public void deleteBatchEmp(List<Integer> ids) {
-        EmployeeExample example = new EmployeeExample();
-        Criteria criteria = example.createCriteria();
-        criteria.andEmpIdIn(ids);
+        HardDiskMgtExample example = new HardDiskMgtExample();
+        HardDiskMgtExample.Criteria criteria = example.createCriteria();
+        criteria.andsendIdIn(ids);
         //delete from xxx where emp_id in (1,2,3);
-        employeeMapper.deleteByExample(example);
+        hardDiskMgtMapper.deleteByExample(example);
     }
     /**
      * 高级搜索功能

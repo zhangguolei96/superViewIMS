@@ -104,63 +104,63 @@ public class HardDiskMgtExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andEmpIdIsNull() {
-            addCriterion("emp_id is null");
+        public Criteria andsendIdIsNull() {
+            addCriterion("send_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdIsNotNull() {
-            addCriterion("emp_id is not null");
+        public Criteria andsendIdIsNotNull() {
+            addCriterion("send_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdEqualTo(Integer value) {
-            addCriterion("emp_id =", value, "empId");
+        public Criteria andsendIdEqualTo(Integer value) {
+            addCriterion("send_id =", value, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotEqualTo(Integer value) {
-            addCriterion("emp_id <>", value, "empId");
+        public Criteria andsendIdNotEqualTo(Integer value) {
+            addCriterion("send_id <>", value, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdGreaterThan(Integer value) {
-            addCriterion("emp_id >", value, "empId");
+        public Criteria andsendIdGreaterThan(Integer value) {
+            addCriterion("send_id >", value, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("emp_id >=", value, "empId");
+        public Criteria andsendIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("send_id >=", value, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdLessThan(Integer value) {
-            addCriterion("emp_id <", value, "empId");
+        public Criteria andsendIdLessThan(Integer value) {
+            addCriterion("send_id <", value, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdLessThanOrEqualTo(Integer value) {
-            addCriterion("emp_id <=", value, "empId");
+        public Criteria andsendIdLessThanOrEqualTo(Integer value) {
+            addCriterion("send_id <=", value, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdIn(List<Integer> values) {
-            addCriterion("emp_id in", values, "empId");
+        public Criteria andsendIdIn(List<Integer> values) {
+            addCriterion("send_id in", values, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotIn(List<Integer> values) {
-            addCriterion("emp_id not in", values, "empId");
+        public Criteria andsendIdNotIn(List<Integer> values) {
+            addCriterion("send_id not in", values, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdBetween(Integer value1, Integer value2) {
-            addCriterion("emp_id between", value1, value2, "empId");
+        public Criteria andsendIdBetween(Integer value1, Integer value2) {
+            addCriterion("send_id between", value1, value2, "sendId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("emp_id not between", value1, value2, "empId");
+        public Criteria andsendIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("send_id not between", value1, value2, "sendId");
             return (Criteria) this;
         }
 

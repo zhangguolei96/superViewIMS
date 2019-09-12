@@ -12,4 +12,9 @@ public interface HardDiskMgtMapper {
 
     // 插入一条硬盘新纪录
     int insertSelective(HardDiskMgt record);
+
+    // 删除单条记录
+    int deleteByPrimaryKey(Integer sendId);
+    // 删除多条记录
+    int deleteByExample(HardDiskMgtExample example);
 }
