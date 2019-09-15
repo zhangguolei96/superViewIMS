@@ -50,16 +50,16 @@ public class HardDiskMgtService {
      * @param id
      * @return
      */
-    public Employee getEmp(Integer id) {
-        Employee employee = employeeMapper.selectByPrimaryKey(id);
-        return employee;
+    public HardDiskMgt getEmp(Integer id) {
+        HardDiskMgt hardDiskMgt = hardDiskMgtMapper.selectByPrimaryKey(id);
+        return hardDiskMgt;
     }
     /**
      * 修改员工信息的提交
      * @param id
      */
-    public void updateEmp(Employee employee) {
-        employeeMapper.updateByPrimaryKeySelective(employee);
+    public void updateEmp(HardDiskMgt hardDiskMgt) {
+        hardDiskMgtMapper.updateByPrimaryKeySelective(hardDiskMgt);
     }
     /**
      * 删除员工信息

@@ -139,25 +139,25 @@
                         aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">员工信息修改</h4>
+                <h4 class="modal-title" id="myModalLabel">硬盘管理记录修改</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="inputEmpName" class="col-sm-2 control-label">姓名</label>
+                        <label for="inputEmpName" class="col-sm-2 control-label">经办人</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static" id="empName_update_static"></p>
+                            <p class="form-control-static" id="sendName_update_static"></p>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <%--<div class="form-group">
                         <label for="inputEmail" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="email_update_input"
                                    name="email" placeholder="xxx@163.com"> <span
                                 class="help-block"></span>
                         </div>
-                    </div>
-                    <div class="form-group">
+                    </div>--%>
+                    <%--<div class="form-group">
                         <label for="inputGender" name="gender"
                                class="col-sm-2 control-label">性别</label>
                         <div class="col-sm-10">
@@ -167,12 +167,35 @@
                                                                          name="gender" id="gender2_update_input" value="F"> 女
                         </label>
                         </div>
-                    </div>
-                    <div class="form-group">
+                    </div>--%>
+                    <%--<div class="form-group">
                         <label for="inputdept" class="col-sm-2 control-label">部门</label>
                         <div class="col-sm-4">
                             <select class="form-control" name="dId" id="dept_update_area">
                             </select>
+                        </div>
+                    </div>--%>
+                    <div class="form-group">
+                        <label for="sendNum_update_input" class="col-sm-2 control-label">寄出数量</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="sendNum_update_input"
+                                   name="sendNum"> <span
+                                class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="desn_update_area" class="col-sm-2 control-label">目的地</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="dId" id="desn_update_area">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="receiveName_update_input" class="col-sm-2 control-label">到手人</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="receiveName_update_input"
+                                   name="receiveName"> <span
+                                class="help-block"></span>
                         </div>
                     </div>
                 </form>
@@ -445,6 +468,8 @@
         });
     }
 
+
+
     function getDestination(ele) {
         $(ele).empty();
         $.ajax({
@@ -590,12 +615,15 @@
 
 
 
-    //新版本jquery使用
+    //  编辑按钮 新版本jquery使用
     $(document).on("click", ".edit_btn", function() {
         //查出部门信息
-        getDepts("#dept_update_area");
+        // getDepts("#dept_update_area");
         //查出员工信息
         getEmp($(this).attr("edit-id"));
+        // 获取目的地
+        getDestination("#desn_update_area");
+
 
         //弹出框,把员工ID传递给更新按钮
         $("#emp_update_btn").attr("edit-id", $(this).attr("edit-id"));
@@ -606,16 +634,20 @@
 
     function getEmp(id) {
         $.ajax({
-            url : "${APP_PATH}/emp/" + id,
+            url : "${APP_PATH}/hdm/" + id,
             type : "GET",
             success : function(result) {
-                var empData = result.extend.emp;
-                $("#empName_update_static").text(empData.empName);
-                $("#email_update_input").val(empData.email);
+                var hdmData = result.extend.hdm;
+                console.log("编辑数据" + JSON.stringify(hdmData));
+                $("#sendName_update_static").text(hdmData.sendName);
+                // $("#email_update_input").val(empData.email);
                 //type=radio
-                $("#empUpdateModal input[name=gender]").val(
-                    [ empData.gender ]);
-                $("#empUpdateModal select").val([ empData.dId ]);
+                $("#sendNum_update_input").val(hdmData.sendNum);
+                /*$("#empUpdateModal input[name=gender]").val(
+                    [ empData.gender ]);*/
+                $("#empUpdateModal select").val([hdmData.dId]);
+
+                $("#receiveName_update_input").val(hdmData.receiveName);
             }
         })
     }
@@ -623,17 +655,17 @@
     //点击更新员工信息
     $("#emp_update_btn").click(function() {
         //校验邮箱
-        var email = $("#email_update_input").val();
+        /*var email = $("#email_update_input").val();
         var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
         if (!regEmail.test(email)) {
             show_validate_msg("#email_update_input", "error", "邮箱格式输入错误");
             return false;
         } else {
             show_validate_msg("#email_update_input", "success", "");
-        }
+        }*/
         //保存员工数据
         $.ajax({
-            url : "${APP_PATH}/emp/" + $(this).attr("edit-id"),
+            url : "${APP_PATH}/hdm/" + $(this).attr("edit-id"),
             type : "PUT",
             data : $("#empUpdateModal form").serialize(),
             success : function(result) {
@@ -660,7 +692,7 @@
         if(confirm("确认删除"+delName+"?")){
             //确定，发送删除请求
             $.ajax({
-                url:"${APP_PATH}/hardDisk/" + $(this).attr("delete-id"),
+                url:"${APP_PATH}/hardDiskDel/" + $(this).attr("delete-id"),
                 type:"DELETE",
                 success:function(result){
                     alert(result.msg);
@@ -696,7 +728,7 @@
         del_idstr = del_idstr.substring(0,del_idstr.length-1);
         if(confirm("确认删除"+empNames+"?")){
             $.ajax({
-                url:"${APP_PATH}/hardDisk/" + del_idstr,
+                url:"${APP_PATH}/hardDiskDel/" + del_idstr,
                 type:"DELETE",
                 success:function(result){
                     alert(result.msg);

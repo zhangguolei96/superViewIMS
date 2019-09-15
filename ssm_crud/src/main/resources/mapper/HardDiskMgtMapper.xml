@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.crud.dao.HardDiskMgtMapper">
 
+    <resultMap id="BaseResultMap" type="com.crud.bean.HardDiskMgt">
+        <id column="send_id" jdbcType="INTEGER" property="sendId" />
+        <result column="send_name" jdbcType="VARCHAR" property="sendName" />
+        <result column="send_num" jdbcType="CHAR" property="sendNum" />
+        <result column="receive_name" jdbcType="VARCHAR" property="receiveName" />
+        <result column="d_id" jdbcType="INTEGER" property="dId" />
+    </resultMap>
     <!-- 用于查询硬盘的时候根据硬盘的d_id查询显示出目的地名称 -->
     <resultMap id="WithDentResultMap" type="com.crud.bean.HardDiskMgt">
         <id column="send_id" jdbcType="INTEGER" property="sendId" />
@@ -55,6 +62,7 @@
     </sql>
 
 
+
     <select id="selectByExampleWithDent" resultMap="WithDentResultMap">
         select
         <if test="distinct">
@@ -71,6 +79,7 @@
             order by ${orderByClause}
         </if>
     </select>
+
 
     <insert id="insertSelective" parameterType="com.crud.bean.HardDiskMgt">
         insert into disk_send
@@ -115,4 +124,46 @@
             </if>
         </trim>
     </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from disk_send
+        where send_id = #{sendId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByExample">
+        delete from disk_send
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <sql id="Base_Column_List">
+    send_id, send_name, send_num, receive_name, d_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from disk_send
+        where send_id = #{sendId,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.crud.bean.HardDiskMgt">
+        update disk_send
+        <set>
+            <if test="sendName != null">
+                send_name = #{sendName,jdbcType=VARCHAR},
+            </if>
+            <if test="sendNum != null">
+                send_num = #{sendNum,jdbcType=VARCHAR},
+            </if>
+
+            <if test="dId != null">
+                d_id = #{dId,jdbcType=INTEGER},
+            </if>
+            <if test="receiveName != null">
+                receive_name = #{receiveName, jdbcType=VARCHAR},
+            </if>
+        </set>
+        where send_id = #{sendId,jdbcType=INTEGER}
+    </update>
 </mapper>

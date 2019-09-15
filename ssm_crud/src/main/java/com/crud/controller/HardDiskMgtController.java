@@ -29,7 +29,6 @@ import com.github.pagehelper.PageInfo;
  * 处理员工信息CRUD请求
  *
  * @author copywang
- *
  */
 @Controller
 public class HardDiskMgtController {
@@ -108,9 +107,10 @@ public class HardDiskMgtController {
         }
     }
 
-    *//**
+    */
+
+    /**
      * 保存员工信息
-     *
      */
     @RequestMapping(value = "/hardDisk/sava", method = RequestMethod.POST)
     @ResponseBody
@@ -126,6 +126,58 @@ public class HardDiskMgtController {
             hardDiskMgtService.saveHd(hardDiskMgt);
             return Msg.success();
         }
+    }
+
+    /**
+     * 批量删除硬盘记录
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/hardDiskDel/{ids}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Msg deleteEmpById(@PathVariable("ids") String ids) {
+        if (ids.contains("-")) {
+            String[] strIds = ids.split("-");
+
+            // 一种实现
+            /*for (String str : strIds) {
+                hardDiskMgtService.deleteEmp(Integer.parseInt(str));
+            }*/
+
+            // 另一种实现
+            List<Integer> del_ids = new ArrayList<Integer>();
+            for (String str : strIds) {
+                del_ids.add(Integer.parseInt(str));
+            }
+            hardDiskMgtService.deleteBatchEmp(del_ids);
+
+        } else {
+            hardDiskMgtService.deleteEmp(Integer.parseInt(ids));
+        }
+        return Msg.success();
+    }
+
+
+    /**
+     *
+     * 查询硬盘信息
+     */
+
+    @RequestMapping(value = "/hdm/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Msg getEmp(@PathVariable("id") Integer id) {
+        HardDiskMgt hdm = hardDiskMgtService.getEmp(id);
+        return Msg.success().add("hdm", hdm);
+    }
+
+    /**
+     * 修改硬盘信息
+     */
+    @RequestMapping(value = "/hdm/{sendId}", method = RequestMethod.PUT)
+    @ResponseBody
+    public Msg getEmp(HardDiskMgt hardDiskMgt) {
+        hardDiskMgtService.updateEmp(hardDiskMgt);
+        return Msg.success();
     }
 
     /**
@@ -157,7 +209,7 @@ public class HardDiskMgtController {
      * hardDiskMgtService.deleteEmp(id); return Msg.success(); }
      *//*
 
-    *//**
+     *//**
      * 批量删除员工信息:1-2-3 单个：1
      *//*
     @RequestMapping(value = "/emp/{ids}", method = RequestMethod.DELETE)
@@ -166,9 +218,9 @@ public class HardDiskMgtController {
         if (ids.contains("-")) {
             String[] strIds = ids.split("-");
             *//*
-             * 一种实现 for (String str : strIds) {
-             * hardDiskMgtService.deleteEmp(Integer.parseInt(str)); }
-             *//*
+     * 一种实现 for (String str : strIds) {
+     * hardDiskMgtService.deleteEmp(Integer.parseInt(str)); }
+     *//*
             // 另一种实现
             List<Integer> del_ids = new ArrayList<Integer>();
             for (String str : strIds) {

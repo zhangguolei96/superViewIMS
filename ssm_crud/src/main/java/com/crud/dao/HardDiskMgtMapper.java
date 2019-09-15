@@ -17,4 +17,10 @@ public interface HardDiskMgtMapper {
     int deleteByPrimaryKey(Integer sendId);
     // 删除多条记录
     int deleteByExample(HardDiskMgtExample example);
+
+    // 通过主键查询硬盘记录信息
+    HardDiskMgt selectByPrimaryKey(Integer sendId);
+
+    // 修改硬盘记录信息
+    int updateByPrimaryKeySelective(HardDiskMgt record);
 }

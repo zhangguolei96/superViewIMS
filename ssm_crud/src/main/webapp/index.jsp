@@ -58,14 +58,14 @@
                                 class="help-block"></span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <%--<div class="form-group">
                         <label for="email_add_input" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="email_add_input"
                                 name="email" placeholder="xxx@163.com"> <span
                                 class="help-block"></span>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="form-group">
                         <label for="phone_add_input" class="col-sm-2 control-label">联系方式</label>
                         <div class="col-sm-10">
@@ -140,14 +140,14 @@
                             <p class="form-control-static" id="empName_update_static"></p>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <%--<div class="form-group">
                         <label for="inputEmail" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="email_update_input"
                                    name="email" placeholder="xxx@163.com"> <span
                                 class="help-block"></span>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="form-group">
                         <label for="inputGender" name="gender"
                                class="col-sm-2 control-label">性别</label>
@@ -161,9 +161,32 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="inputPhone" class="col-sm-2 control-label">联系方式</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="phone_update_input"
+                                   name="phone" placeholder="188 **** ****"> <span
+                                class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTel" class="col-sm-2 control-label">工作电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tel_update_input"
+                                   name="tel" placeholder="0571 **** ****"> <span
+                                class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputdept" class="col-sm-2 control-label">部门</label>
                         <div class="col-sm-4">
                             <select class="form-control" name="dId" id="dept_update_area">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputgroup" class="col-sm-2 control-label">组别</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="gId" id="group_update_area">
                             </select>
                         </div>
                     </div>
@@ -567,6 +590,8 @@
     $(document).on("click", ".edit_btn", function () {
         //查出部门信息
         getDepts("#dept_update_area");
+        //查出组别信息
+        getGroup("#group_update_area");
         //查出员工信息
         getEmp($(this).attr("edit-id"));
 
@@ -583,12 +608,21 @@
             type: "GET",
             success: function (result) {
                 var empData = result.extend.emp;
+                console.log("编辑数据" + JSON.stringify(empData));
                 $("#empName_update_static").text(empData.empName);
-                $("#email_update_input").val(empData.email);
+                // $("#email_update_input").val(empData.email);
                 //type=radio
+                $("#phone_update_input").val(empData.phone);
+                $("#tel_update_input").val(empData.tel);
                 $("#empUpdateModal input[name=gender]").val(
                     [empData.gender]);
-                $("#empUpdateModal select").val([empData.dId]);
+
+                $("#dept_update_area").find("option[value = '"+empData.dId+"']").attr("selected","selected");
+                $("#group_update_area").find("option[value = '"+empData.gId+"']").attr("selected","selected");
+                // $("#dept_update_area select").val([empData.dId]);
+                // $("#group_update_area select").val([empData.gId]);
+                // $("#empUpdateModal select").val([empData.gId]);
+
             }
         })
     }
@@ -596,14 +630,14 @@
     //点击更新员工信息
     $("#emp_update_btn").click(function () {
         //校验邮箱
-        var email = $("#email_update_input").val();
+        /*var email = $("#email_update_input").val();
         var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
         if (!regEmail.test(email)) {
             show_validate_msg("#email_update_input", "error", "邮箱格式输入错误");
             return false;
         } else {
             show_validate_msg("#email_update_input", "success", "");
-        }
+        }*/
         //保存员工数据
         $.ajax({
             url: "${APP_PATH}/emp/" + $(this).attr("edit-id"),

@@ -86,7 +86,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    emp_id, emp_name, gender, email, d_id
+    emp_id, emp_name, gender, phone, tel, d_id ,g_id
   </sql>
     <!-- 
     //新增加的2个方法，用于查询员工的时候根据员工的d_id查询显示出部门名称
@@ -279,11 +279,20 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=CHAR},
       </if>
-      <if test="email != null">
+      <!--<if test="email != null">
         email = #{email,jdbcType=VARCHAR},
+      </if>-->
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
       </if>
       <if test="dId != null">
         d_id = #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="gId != null">
+        g_id = #{gId, jdbcType=INTEGER},
       </if>
     </set>
     where emp_id = #{empId,jdbcType=INTEGER}
